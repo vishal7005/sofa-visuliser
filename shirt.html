@@ -1,0 +1,45 @@
+<html>
+    <head></head>
+    <body>
+        <dvi style="width:1080px;heigth:675px; background-image: url(shirt-mask.webp);background-repeat:no-repeat;width:1080px;height:675px; position: absolute;">
+            <canvas id="canvas" width=1080 height=675 style="position: absolute;"></canvas>
+        </div>
+        
+    </body>
+</html>
+<script>
+    var img1 = new Image, img2 = new Image, cnt = 2,
+    canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
+// image loading for demo (ignore)
+img1.onload = img2.onload = function() {if (!--cnt) go()};
+img1.src = "shirt-mask.webp";       // sofa
+img2.src = "cofee.png";   // pattern
+
+// MAIN CODE ---
+function go() {
+
+  // create a pattern  
+  ctx.fillStyle = ctx.createPattern(img2, "repeat");
+  
+  // fill canvas with pattern
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // use blending mode multiply
+  ctx.globalCompositeOperation = "multiply";
+  
+  // draw sofa on top
+  ctx.drawImage(img1, 0, 0,1080,675);
+  
+  // change composition mode
+  ctx.globalCompositeOperation = "destination-in";
+/*   ctx.strokeStyle = 'rgba(255,255,255,1)';
+ctx.fillStyle = 'rgba(255,255,255,1)'; */
+  // draw to cut-out sofa
+ // ctx.drawImage(img1, 0, 0, img1.width*.5, img1.height*.5);
+ ctx.drawImage(img1, 0, 0,1080,675);
+}
+
+
+</script>
